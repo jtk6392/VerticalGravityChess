@@ -68,7 +68,7 @@ public class Board {
      * @return the number of consecutive plays vertically.
      */
     private int verticalConsecutives(int i, int j, int p) {
-        int consecutives = 0;
+        int consecutives = 1;
         while(j > 0 && board[i][j] == p) { // Check a vertical column from the play.
             j--;
             consecutives++;
@@ -160,11 +160,11 @@ public class Board {
      * @return If the play caused a four-play connection, true. otherwise false.
      */
     public boolean playerWon(int i, int p) {
-        int j = 0;
+        int j = 5;
         int consecutives = 0;
         int temp;
         while(board[i][j]==-1){ // Finds the y-index of the play.
-            j++;
+            j--;
         }
 
         consecutives = verticalConsecutives(i, j-1, p);
@@ -222,6 +222,13 @@ public class Board {
         b.play(0,Player.PLAYER1);
         b.play(1,Player.PLAYER2);
         System.out.println(b);
+        b.play(0,Player.PLAYER1);
+        b.play(0,Player.PLAYER1);
+        b.play(0,Player.PLAYER1);
+        System.out.println(b);
+        if(b.playerWon(0, 1)) {
+            System.out.println("Player 1 won!");
+        }
     }
 }
 
