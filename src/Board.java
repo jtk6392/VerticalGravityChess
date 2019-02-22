@@ -1,4 +1,7 @@
 public class Board {
+    private String player1;
+    private String player2;
+
     int[][] board = new int[7][6];
 
     public Board() {
@@ -36,6 +39,13 @@ public class Board {
         return false;
     }
 
+    public boolean playerWon(int i, int p) {
+        return false;
+    }
+
+
+
+
 
     @Override
     public String toString() {
@@ -52,6 +62,7 @@ public class Board {
     public static void main(String[] args) {
         Board b = new Board();
         System.out.println(b);
+
     }
 }
 
