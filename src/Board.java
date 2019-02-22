@@ -11,7 +11,7 @@ public class Board {
      * Constructor for board. initializes the board to be -1 except for the bottom row.
      */
     public Board() {
-        for(int j = 0; j < 5; j++) {
+        for(int j = 5; j > 0; j--) {
             for (int i = 0; i < 7; i++) {
                 board[i][j] = -1;
             }
@@ -39,7 +39,7 @@ public class Board {
      * @return true if the play was made successfully, otherwise false.
      */
     public boolean play(int i, Player p) {
-        if (i > 0 && i < this.board.length) {
+        if (i >= 0 && i < this.board.length) {
             for(int j = 5; j >=0; j--) {
                 if(board[i][j] == 0) {
                     if(p == Player.PLAYER1) {
@@ -194,9 +194,17 @@ public class Board {
     @Override
     public String toString() {
         String outString = "";
-        for(int j = 0; j < 6; j++) {
+        for(int j = 5; j >= 0; j--) {
             for(int i = 0; i < 7; i++) {
-                outString += board[i][j];
+                if(board[i][j] == -1) {
+                    outString += 'x';
+                } else if(board[i][j] == 0) {
+                    outString += 'o';
+                } else if(board[i][j] == 1) {
+                    outString += 'r';
+                } else {
+                    outString += 'b';
+                }
             }
             outString+="\n";
         }
@@ -211,6 +219,9 @@ public class Board {
         Board b = new Board();
         System.out.println(b);
 
+        b.play(0,Player.PLAYER1);
+        b.play(1,Player.PLAYER2);
+        System.out.println(b);
     }
 }
 
