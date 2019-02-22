@@ -68,8 +68,9 @@ public class Board {
      * @return the number of consecutive plays vertically.
      */
     private int verticalConsecutives(int i, int j, int p) {
-        int consecutives = 1;
-        while(j > 0 && board[i][j] == p) { // Check a vertical column from the play.
+        int consecutives = 0;
+
+        while(j >= 0 && board[i][j] == p) { // Check a vertical column from the play.
             j--;
             consecutives++;
         }
@@ -86,7 +87,7 @@ public class Board {
     private int horizontalConsecutives(int i, int j, int p) {
         int consecutives = 0;
         int temp = i;
-        while(temp > 0 && board[temp][j] == p) { // Check left of play
+        while(temp >= 0 && board[temp][j] == p) { // Check left of play
                 temp--;
                 consecutives++;
             }
@@ -118,7 +119,7 @@ public class Board {
         }
         tempx = i - 1;
         tempy = j - 1;
-        while(tempx > 0 && tempy > 0 && board[tempx][tempy] == p) { // Check down and to the left.
+        while(tempx >= 0 && tempy >= 0 && board[tempx][tempy] == p) { // Check down and to the left.
             consecutives++;
             tempx--;
             tempy--;
@@ -138,14 +139,14 @@ public class Board {
         int tempx = i;
         int tempy = j;
 
-        while(tempx > 0 && tempy < 6 && board[tempx][tempy] == p) { // Check up and to the left.
+        while(tempx >= 0 && tempy < 6 && board[tempx][tempy] == p) { // Check up and to the left.
             consecutives++;
             tempx--;
             tempy++;
         }
         tempx = i + 1;
         tempy = j - 1;
-        while(tempx < 7 && tempy > 0 && board[tempx][tempy] == p) { // Check down and to the right.
+        while(tempx < 7 && tempy >= 0 && board[tempx][tempy] == p) { // Check down and to the right.
             consecutives++;
             tempx++;
             tempy--;
@@ -166,8 +167,9 @@ public class Board {
         while(board[i][j]==-1){ // Finds the y-index of the play.
             j--;
         }
+        j--;
 
-        consecutives = verticalConsecutives(i, j-1, p);
+        consecutives = verticalConsecutives(i, j, p);
         if(consecutives==4) {
             return true;
         }
@@ -197,13 +199,13 @@ public class Board {
         for(int j = 5; j >= 0; j--) {
             for(int i = 0; i < 7; i++) {
                 if(board[i][j] == -1) {
-                    outString += 'x';
+                    outString += 'X';
                 } else if(board[i][j] == 0) {
-                    outString += 'o';
+                    outString += 'O';
                 } else if(board[i][j] == 1) {
-                    outString += 'r';
+                    outString += 'R';
                 } else {
-                    outString += 'b';
+                    outString += 'B';
                 }
             }
             outString+="\n";
@@ -219,14 +221,44 @@ public class Board {
         Board b = new Board();
         System.out.println(b);
 
+        // ~~~~~~~~~~~~Tests verticalConsecutives()
         b.play(0,Player.PLAYER1);
         b.play(1,Player.PLAYER2);
-        System.out.println(b);
         b.play(0,Player.PLAYER1);
         b.play(0,Player.PLAYER1);
         b.play(0,Player.PLAYER1);
         System.out.println(b);
         if(b.playerWon(0, 1)) {
+            System.out.println("Player 1 won!\n");
+        }
+
+        Board b2 = new Board();
+        System.out.println(b2);
+
+        // ~~~~~~~~Tests rightDiagonalConsecutives()
+        b2.play(0,Player.PLAYER1);
+        b2.play(1,Player.PLAYER1);
+        b2.play(1,Player.PLAYER1);
+        b2.play(2,Player.PLAYER1);
+        b2.play(2,Player.PLAYER1);
+        b2.play(2,Player.PLAYER1);
+        b2.play(3,Player.PLAYER2);
+        b2.play(3,Player.PLAYER1);
+        b2.play(3,Player.PLAYER1);
+        b2.play(3,Player.PLAYER1);
+
+        System.out.println(b2);
+        if(b2.playerWon(3,1)) {
+            System.out.println("Player 1 won!\n");
+        }
+
+        b = new Board();
+        b.play(0,Player.PLAYER1);
+        b.play(1,Player.PLAYER1);
+        b.play(2,Player.PLAYER1);
+        b.play(3,Player.PLAYER1);
+        System.out.println(b);
+        if(b.playerWon(3,1)){
             System.out.println("Player 1 won!");
         }
     }
