@@ -20,6 +20,10 @@ public class Network {
 
     }
 
+    public void updateNetwork(){
+
+    }
+
     public boolean getWin(){
         return this.win;
     }
