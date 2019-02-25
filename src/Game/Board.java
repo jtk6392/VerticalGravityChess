@@ -1,3 +1,5 @@
+package Game;
+
 public class Board {
     private String player1;
     private String player2;
@@ -214,7 +216,7 @@ public class Board {
     }
 
     /**
-     * Test function for Board.
+     * Test function for Game.Board.
      * @param args unused.
      */
     public static void main(String[] args) {

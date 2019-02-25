@@ -1,4 +1,5 @@
-import java.lang.Character;
+package Game;
+
 import java.util.Scanner;
 public class Game {
 
