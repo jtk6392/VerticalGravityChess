@@ -1,17 +1,14 @@
 package Game;
 
 public class Board {
-    private String player1;
-    private String player2;
-
-    /**
-     * 2D array to represent the 7x6 board.
-     */
+    /** The running total number of plays. */
+    private int numPlays = 0;
+    /** The maximum number of possible plays. */
+    private final static int MAX_PLAYS = 42;
+    /** 2D array to represent the 7x6 board. */
     int[][] board = new int[7][6];
 
-    /**
-     * Constructor for board. initializes the board to be -1 except for the bottom row.
-     */
+    /** Constructor for board. initializes the board to be -1 except for the bottom row. */
     public Board() {
         for(int j = 5; j > 0; j--) {
             for (int i = 0; i < 7; i++) {
@@ -26,12 +23,18 @@ public class Board {
      */
     public int[][] getBoard() {return this.board;}
 
-    /**
-     * Enum to represent a player.
-     */
+    /** Enum to represent a player. */
     public enum Player {
         PLAYER1,
         PLAYER2
+    }
+
+    /**
+     * Determines if the players tied.
+     * @return True if there are no open plays, otherwise false.
+     */
+    public boolean DetermineTie(){
+        return numPlays == MAX_PLAYS;
     }
 
     /**
@@ -52,6 +55,7 @@ public class Board {
                     if(j+1 < 6){
                         board[i][j+1] = 0;
                     }
+                    numPlays++;
                     return true;
                 }
             }
@@ -221,48 +225,55 @@ public class Board {
      */
     public static void main(String[] args) {
         Board b = new Board();
-        System.out.println(b);
-
         // ~~~~~~~~~~~~Tests verticalConsecutives()
         b.play(0,Player.PLAYER1);
         b.play(1,Player.PLAYER2);
         b.play(0,Player.PLAYER1);
         b.play(0,Player.PLAYER1);
         b.play(0,Player.PLAYER1);
-        System.out.println(b);
-        if(b.playerWon(0, 1)) {
-            System.out.println("Player 1 won!\n");
-        }
 
-        Board b2 = new Board();
-        System.out.println(b2);
+        System.out.println("Testing verticalConsecutives(): " + (b.playerWon(0, 1) ? "OK." :
+                "Fail\n\n" + b));
 
+        b = new Board();
         // ~~~~~~~~Tests rightDiagonalConsecutives()
-        b2.play(0,Player.PLAYER1);
-        b2.play(1,Player.PLAYER1);
-        b2.play(1,Player.PLAYER1);
-        b2.play(2,Player.PLAYER1);
-        b2.play(2,Player.PLAYER1);
-        b2.play(2,Player.PLAYER1);
-        b2.play(3,Player.PLAYER2);
-        b2.play(3,Player.PLAYER1);
-        b2.play(3,Player.PLAYER1);
-        b2.play(3,Player.PLAYER1);
+        b.play(0,Player.PLAYER1);
+        b.play(1,Player.PLAYER1);
+        b.play(1,Player.PLAYER1);
+        b.play(2,Player.PLAYER1);
+        b.play(2,Player.PLAYER1);
+        b.play(2,Player.PLAYER1);
+        b.play(3,Player.PLAYER2);
+        b.play(3,Player.PLAYER1);
+        b.play(3,Player.PLAYER1);
+        b.play(3,Player.PLAYER1);
 
-        System.out.println(b2);
-        if(b2.playerWon(3,1)) {
-            System.out.println("Player 1 won!\n");
-        }
+        System.out.println("Testing rightDiagonalConsecutives(): " + (b.playerWon(3,1) ? "OK." :
+                "Fail\n\n" + b));
 
+        // ~~~~~~~Tests horizontalConsecutives().
         b = new Board();
         b.play(0,Player.PLAYER1);
         b.play(1,Player.PLAYER1);
         b.play(2,Player.PLAYER1);
         b.play(3,Player.PLAYER1);
-        System.out.println(b);
-        if(b.playerWon(3,1)){
-            System.out.println("Player 1 won!");
-        }
+        System.out.println("Testing horizontalConsecutives(): " + (b.playerWon(3,1) ? "OK." :
+                "Fail\n\n" + b));
+
+        // ~~~~~~~Tests leftDiagonalConsecutives
+        b = new Board();
+        b.play(0,Player.PLAYER1);
+        b.play(1,Player.PLAYER1);
+        b.play(1,Player.PLAYER1);
+        b.play(2,Player.PLAYER1);
+        b.play(2,Player.PLAYER1);
+        b.play(2,Player.PLAYER1);
+        b.play(3,Player.PLAYER2);
+        b.play(3,Player.PLAYER1);
+        b.play(3,Player.PLAYER1);
+        b.play(3,Player.PLAYER1);
+        System.out.println("Testing leftDiagonalConsecutives(): " + (b.playerWon(3, 1) ? "OK." :
+                "Fail\n\n" + b));
     }
 }
 

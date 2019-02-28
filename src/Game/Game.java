@@ -45,7 +45,7 @@ public class Game {
         int play;
         while (!done) {
             System.out.println(b);
-            System.out.print("Enter your play: ");
+            System.out.print("Player " + p + " Enter your play: ");
 
             play = Game.sc.nextInt();
             Game.sc.nextLine();
@@ -55,6 +55,9 @@ public class Game {
                 done = b.playerWon(play, p);
                 if (done) {
                     System.out.println("Player " + p + " Wins!");
+                } else if(b.DetermineTie()) {
+                    System.out.println("Tie!");
+                    done = true;
                 } else {
                     if (p == 1) {
                         p = 2;
